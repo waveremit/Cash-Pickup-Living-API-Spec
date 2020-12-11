@@ -23,6 +23,13 @@ Please also submit  to Sendwave the IP address from the VM which will be making 
     * *recipient_name*: (string) Recipients name as the user inputted.
         * Note: If this needs to be updated the Sender can call into Sendwave Support and change the name of the recipient.
     * *recipient_mobile*: (string) Mobile number which Sendwave texted the confirmation_code to (e.g. "+234xxxxxxxxxx")
+    * *recipient_country*: (string) ISO Alpha-2 country code that the recipient hails from. 
+      * Possible countries: ng
+    * *sender_name*: (string) Name of the sender
+    * *sender_country*: (string) ISO Alpha-2 country code that the sender is from.
+      * Possible countries: us, gb, fr, es, it, ir, ie, ca
+    * *sender_state*: (string) Two letter state code (if applicable)
+      * Possible entries: 2-letter U.S. state code. 
     * *send_amount*: (float) 
     * *send_currency*: (str) Currency iso_3
         * Possible currencies: USD, GBP, EUR, CAD
