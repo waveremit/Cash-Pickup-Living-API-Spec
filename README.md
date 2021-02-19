@@ -308,3 +308,62 @@ curl --request PUT 'https://app.sendwave.com/transfers/BBBBBB' \
 {"confirmation_code": "BBBBBB", "status": "INVALID_OTP",
 "status_description": ""}200%
 ```
+
+# Resend OTP POST /transfers/<confirmation_code>/locks/notifications
+
+## Endpoint Details
+
+* Query parameters:
+    * *confirmation_code*: (string) code sent to recipient and sender. This is the code presented to the teller at the bank  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
+
+* Response Attributes
+    * *confirmation_code*: (string)  code sent to recipient and sender. This is the code presented to the teller at the bank by the recipient  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
+    * *status*: (str)
+        * OTP_NOTIFICATION_SENT: The OTP notification was sent (but not necessarily delivered) to the recipient.
+        * OTP_NOTIFICATION_NOT_SENT: The system did not attempt to send an OTP (e.g. because the given confirmation code did not correspond to a locked transaction)
+        * OTP_NOTIFICATION_FAILED: The system attempted to send the OTP but the attempt failed.
+    * *status_description*: (str) Description of error
+        * e.g.:
+            * ‘Sent OTP’
+            * ‘Transaction not locked’
+            * ‘Unable to send recipient OTP Code’
+            * ‘No transaction found for confirmation code’
+
+## Sample Requests
+
+### OTP_NOTIFICATION_SENT
+```
+curl --request POST 'https://app.sendwave.com/transfers/AAAAAA/locks/notifications' \
+--header 'Authorization: Basic <token>' \
+--header 'Content-Type: application/json' \
+--w "%{http_code}"
+
+{"confirmation_code": "AAAAAA", "status": "OTP_NOTIFICATION_SENT", "status_description": "Sent OTP"}201%
+```
+
+### OTP_NOTIFICATION_NOT_SENT: Transaction Not Found
+```
+curl --request POST 'https://app.sendwave.com/transfers/DDDDDD/locks/notifications' \
+--header 'Authorization: Basic <token>' \
+--header 'Content-Type: application/json' \
+--w "%{http_code}"
+{"confirmation_code": "DDDDDD", "status": "OTP_NOTIFICATION_NOT_SENT", "status_description": "No transaction found for confirmation code"}404%
+```
+
+### OTP_NOTIFICATION_NOT_SENT: Transaction Not Locked
+```
+curl --request POST 'https://app.sendwave.com/transfers/BBBBBB/locks/notifications' \
+--header 'Authorization: Basic <token>' \
+--header 'Content-Type: application/json' \
+--w "%{http_code}"
+{"confirmation_code": "BBBBBB", "status": "OTP_NOTIFICATION_NOT_SENT", "status_description": "Transaction not locked"}422%
+```
+
+### OTP_NOTIFICATION_FAILED
+```
+curl --request POST 'https://app.sendwave.com/transfers/CCCCCC/locks/notifications' \
+--header 'Authorization: Basic <token>' \
+--header 'Content-Type: application/json' \
+--w "%{http_code}"
+{"confirmation_code": "CCCCCC", "status": "OTP_NOTIFICATION_FAILED", "status_description": "Unable to send recipient OTP Code"}500%
+```
