@@ -314,7 +314,7 @@ curl --request PUT 'https://app.sendwave.com/transfers/BBBBBB' \
 ## Endpoint Details
 
 * Query parameters:
-    * *confirmation_code*: (string) code sent to recipient and sender. This is presented code presented to the teller at the bank  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
+    * *confirmation_code*: (string) code sent to recipient and sender. This is the code presented to the teller at the bank  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
 
 * Response Attributes
     * *confirmation_code*: (string)  code sent to recipient and sender. This is the code presented to the teller at the bank by the recipient  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
