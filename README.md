@@ -105,7 +105,7 @@ curl --request POST 'https://app.sendwave.com/transfers/DDDDDD' \
 
 
 # Lock Transfer PUT /transfers/<confirmation_code>/lock
-This endpoint will lock the transaction and attempt to send the recipient an OTP.   This can be called immediately after the GET lookup above. 
+This endpoint will lock the transaction for 15 minutes and prevent other banks/tellers from processing the transaction for that duration. This can be called immediately after the GET lookup above. 
 
 ## Endpoint Details:
 
