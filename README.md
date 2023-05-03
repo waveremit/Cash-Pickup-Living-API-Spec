@@ -23,22 +23,22 @@ Please also submit  to Sendwave the IP address from the VM which will be making 
     * *recipient_name*: (string) Recipients name as the user inputted.
         * Note: If this needs to be updated the Sender can call into Sendwave Support and change the name of the recipient.
     * *recipient_mobile*: (string) Mobile number which Sendwave texted the confirmation_code to (e.g. "+234xxxxxxxxxx")
-    * *recipient_country*: (string) ISO Alpha-2 country code that the recipient hails from. 
+    * *recipient_country*: (string) ISO Alpha-2 country code that the recipient hails from.
       * Possible countries: ng
     * *sender_name*: (string) Name of the sender
     * *sender_country*: (string) ISO Alpha-2 country code that the sender is from.
       * Possible countries: us, gb, fr, es, it, ir, ie, ca
     * *sender_state*: (string) Two letter state code (if applicable)
-      * Possible entries: 2-letter U.S. state code. 
-    * *send_amount*: (float) 
+      * Possible entries: 2-letter U.S. state code.
+    * *send_amount*: (float)
     * *send_currency*: (str) Currency iso_3
         * Possible currencies: USD, GBP, EUR, CAD
-    * *receive_amount*: (float) 
+    * *receive_amount*: (float)
     * *receive_currency*: (str) Currency iso_3
         * Possible currencies: USD
     * *status*:
         * NOT_PAID: These are transactions Senders have initiated through Sendwave for cash pickup at Access bank. Sendwave is awaiting the recipient to cash out at a bank and an Access Bank teller to complete the transaction
-        * LOCKED: These transactions are in the process of going through teller confirmation with the beneficiary (recipient). 
+        * LOCKED: These transactions are in the process of going through teller confirmation with the beneficiary (recipient).
         * PAID: These are transactions which have already been paid out
             * Note: Access Bank should not pay these out since they have already been paid out
         * CANCELLED: These are transactions that Senders have initiated through Sendwave for cash pickup at Access bank, but have been cancelled by either the sender or the transfer is past 7 days.
@@ -53,7 +53,7 @@ Please also submit  to Sendwave the IP address from the VM which will be making 
 ```
 curl --request GET 'https://app.sendwave.com/transfers/ZZZZZZ' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 404%
 ```
@@ -61,7 +61,7 @@ curl --request GET 'https://app.sendwave.com/transfers/ZZZZZZ' \
 ```
 curl --request GET 'https://app.sendwave.com/transfers/AAAAAA' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 {"confirmation_code": "AAAAAA", "recipient_name": "Maxwell Obi",
 "recipient_mobile": "+2347031247953", "send_amount": 95.95,
@@ -72,7 +72,7 @@ curl --request GET 'https://app.sendwave.com/transfers/AAAAAA' \
 ```
 curl --request GET 'https://app.sendwave.com/transfers/BBBBBB' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 {"confirmation_code": "BBBBBB", "recipient_name": "Maxwell Obi",
 "recipient_mobile": "+2347031247953", "send_amount": 95.95,
@@ -85,7 +85,7 @@ curl --request GET 'https://app.sendwave.com/transfers/BBBBBB' \
 ```
 curl --request GET 'https://app.sendwave.com/transfers/CCCCCC' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 {"confirmation_code": "CCCCCC", "recipient_name": "Maxwell Obi",
 "recipient_mobile": "+2347031247953", "send_amount": 95.95,
@@ -97,7 +97,7 @@ curl --request GET 'https://app.sendwave.com/transfers/CCCCCC' \
 ```
 curl --request POST 'https://app.sendwave.com/transfers/DDDDDD' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 {"confirmation_code": "DDDDDD", "recipient_name": "Maxwell Obi",
 "status": "LOCKED", "status_description": "Transfer already locked for distribution"}200%
@@ -105,7 +105,7 @@ curl --request POST 'https://app.sendwave.com/transfers/DDDDDD' \
 
 
 # Lock Transfer PUT /transfers/<confirmation_code>/lock
-This endpoint will lock the transaction for 15 minutes and prevent other banks/tellers from processing the transaction for that duration. This can be called immediately after the GET lookup above. 
+This endpoint will lock the transaction for 15 minutes and prevent other banks/tellers from processing the transaction for that duration. This can be called immediately after the GET lookup above.
 
 ## Endpoint Details:
 
@@ -121,14 +121,14 @@ This endpoint will lock the transaction for 15 minutes and prevent other banks/t
         * CANNOT_LOCK
             * e.g.:
                 * Already locked
-                * Transfer has status: PAID 
-                * Transfer has status: CANCELLED 
+                * Transfer has status: PAID
+                * Transfer has status: CANCELLED
         * FAILED
             *  OTP failed to send
     * *status_description:* (str) Description of error
         * Already locked
-        * Transfer has status: PAID 
-        * Transfer has status: CANCELLED 
+        * Transfer has status: PAID
+        * Transfer has status: CANCELLED
         *  OTP failed to send
 
 ## Sample Requests:
@@ -187,8 +187,8 @@ curl --request PUT  'https://app.sendwave.com/transfers/ZZZZZZ/lock'\
         \"branch_code\": ""\"XYZ456\",
         \"employee_id\": \"123456\",
      }" \
-    --w "%{http_code}" 
-    
+    --w "%{http_code}"
+
 404%
 ```
 
@@ -201,17 +201,17 @@ curl --request PUT  'https://app.sendwave.com/transfers/ZZZZZZ/lock'\
 * Query parameters:
     * *confirmation_code*: (string) code sent to recipient and sender. This is presented code presented to the teller at Access Bank  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
 * Request data
-    * *track_id *(REQUIRED):* *Transaction id on the bank side 
+    * *track_id *(REQUIRED):* *Transaction id on the bank side
     * *branch_code *(REQUIRED)*: *Unique identifier for the bank branch
     * *employee_id *(REQUIRED): Unique identifier for the bank employee performing the payout
-    * *otp *(REQUIRED): User supplied OTP. Must match the one that they were sent. 
+    * *otp *(REQUIRED): User supplied OTP. Must match the one that they were sent.
 * Response Attributes
     * *confirmation_code*: (string)  code sent to recipient and sender. This is the code presented to the teller at Access Bank by the recipient  (a string of variable length up to 20 characters, potentially including uppercase alphanumeric characters and -)
     * *status*: (str)
-        * PAY_OUT: The teller should pay out the funds. The transfer has been validated and marked successful in Sendwave’s system. 
-        * ALREADY_PAID: Do not pay out. The transfer has not been validated and has already been completed. 
-        * CANCELLED: Do not pay out. The transfer has been cancelled by the sender or Sendwave. 
-        * INVALID_OTP: Do not pay out. An invalid OTP was submitted. Teller may re-submit. 
+        * PAY_OUT: The teller should pay out the funds. The transfer has been validated and marked successful in Sendwave’s system.
+        * ALREADY_PAID: Do not pay out. The transfer has not been validated and has already been completed. This status may have a special value for the field `status_description="SAME_BANK_BRANCH_EMPLOYEE"`, indicating that the current "Mark transfer complete" request shares the same bank, branch, and employee ID as the last request that was successfully processed by Sendwave with a given confirmation code. This is intended to resolve any failed requests due to network issues by informing the user that if (and only if) they didn't receive a response to the previous request, the teller is still able to pay out the funds.
+        * CANCELLED: Do not pay out. The transfer has been cancelled by the sender or Sendwave.
+        * INVALID_OTP: Do not pay out. An invalid OTP was submitted. Teller may re-submit.
     * *status_description*: (str) Description of error
         * e.g.:
             * ‘Cancelled by Sender’
@@ -223,7 +223,7 @@ curl --request PUT  'https://app.sendwave.com/transfers/ZZZZZZ/lock'\
 ```
 curl --request PUT 'https://app.sendwave.com/transfers/AAAAAA' \
     --header 'Authorization: Basic <token>' \
-    --w "%{http_code}" 
+    --w "%{http_code}"
 
 Missing request data400%
 ```
