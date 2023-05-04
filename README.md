@@ -104,7 +104,7 @@ curl --request POST 'https://app.sendwave.com/transfers/DDDDDD' \
 ```
 
 
-# Lock Transfer PUT /transfers/<confirmation_code>/lock
+# Lock Transfer: PUT /transfers/<confirmation_code>/lock
 This endpoint will lock the transaction for 15 minutes and prevent other banks/tellers from processing the transaction for that duration. This can be called immediately after the GET lookup above.
 
 ## Endpoint Details:
@@ -194,7 +194,7 @@ curl --request PUT  'https://app.sendwave.com/transfers/ZZZZZZ/lock'\
 
 
 
-# Mark Transfer Complete PUT /transfers/<confirmation_code>
+# Mark Transfer Complete: PUT /transfers/<confirmation_code>
 
 ## Endpoint Details
 
@@ -309,7 +309,7 @@ curl --request PUT 'https://app.sendwave.com/transfers/BBBBBB' \
 "status_description": ""}200%
 ```
 
-# Resend OTP POST /transfers/<confirmation_code>/locks/notifications
+# Resend OTP: POST /transfers/<confirmation_code>/locks/notifications
 
 ## Endpoint Details
 
