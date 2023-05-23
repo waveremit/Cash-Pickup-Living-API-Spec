@@ -370,8 +370,8 @@ curl --request POST 'https://app.sendwave.com/transfers/CCCCCC/locks/notificatio
    
 # API Changes History
 - **Version 1.0.2** (2023-05-03)
-  -  **Mark Transfer Complete:** `PUT /transfers/<confirmation_code>` endpoint's response is enriched with a `status_description="SAME_BANK_BRANCH_EMPLOYEE"` to work around connectivity related failures of the same endpoint. Previously an empty string value `status_description=""` has been returned.
+   -  **Mark Transfer Complete:** `PUT /transfers/<confirmation_code>` endpoint's response is enriched with a `status_description="SAME_BANK_BRANCH_EMPLOYEE"` to work around connectivity related failures of the same endpoint. Previously an empty string value `status_description=""` has been returned.
 - **Version 1.0.1** (2021-02-19)
-  - Added new endpoint `POST  /transfers/<confirmation_code>/locks/notifications` to resend OTPs to sender and recipient   
+   - Added new endpoint `POST  /transfers/<confirmation_code>/locks/notifications` to resend OTPs to sender and recipient   
 - **Version 1.0.0** (2020-12-10)
-  - Initial release of the API
+   - Initial release of the API
